@@ -13,7 +13,7 @@ namespace eDecor.DAO.Entities
         public string ContactNo { get; private set; }
 
         public InteriorDecorator(string decoratorName, int yearsOfExperience, string expertise, string location, string email, string contactNo)
-        {
+        {            
             DecoratorName = decoratorName;
             SetYearsOfExperience(yearsOfExperience);
             Expertise = expertise;
