@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace eDecor.DAO.Entities
 {
@@ -13,13 +14,19 @@ namespace eDecor.DAO.Entities
         public string ContactNo { get; private set; }
 
         public InteriorDecorator(string decoratorName, int yearsOfExperience, string expertise, string location, string email, string contactNo)
-        {            
-            DecoratorName = decoratorName;
-            SetYearsOfExperience(yearsOfExperience);
-            Expertise = expertise;
-            Location = location;
-            Email = email;
-            SetContactNo(contactNo);
+        {
+            //try
+            //{
+                DecoratorName = decoratorName;
+                SetYearsOfExperience(yearsOfExperience);
+                Expertise = expertise;
+                Location = location;
+                Email = email;
+                SetContactNo(contactNo);
+            //}
+            //catch (Exception e) {
+            //    throw e;
+            //}
         }
 
         public void SetId(int id)

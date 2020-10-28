@@ -1,6 +1,7 @@
 ﻿using eDecor.DAO.Entities;
 using eDecor.DAO.Repositories;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace test
@@ -159,39 +160,118 @@ namespace test
 
         #region negative_test_cases
 
+        [Test]
         public void ShouldAddDecoratorFailWithInvalidContactNo()
         {
             // use Exception Assert
+
+            //Arrange
+            //var interiorDecorator = new InteriorDecorator(
+            //    "Trees",
+            //    10,
+            //    "Amateur",
+            //    "Bangalore",
+            //    "trees@gmail.com",
+            //    "123456789"
+            //    );
+
+            //Act & Assert            
+            Assert.Throws<InvalidInputException>(() => new InteriorDecorator(
+                "Sample",
+                10,
+                "Amateur",
+                "Bangalore",
+                "trees@gmail.com",
+                "123456789"
+                ), "Exception is not thrown properly");            
         }
 
+        [Test]
         public void ShouldAddDecoratorFailWithInvalidExperienceYears()
         {
             // use Exception Assert
+            Assert.Throws<InvalidInputException>(() => new InteriorDecorator(
+                "Sample",
+                -1,
+                "Amateur",
+                "Bangalore",
+                "trees@gmail.com",
+                "1234567891"
+                ), "Exception is not thrown properly");
         }
 
+        [Test]
+        [TestCase(9999)]
         public void ShouldGetDecoratorReturnNullWithInvalidId(int decoratorId)
         {
             // use Condition Assert
+            //Act
+            var result = _repo.GetDecorator(decoratorId);
+
+            //Assert
+            Assert.IsTrue(result == null, "The invalid fetch did not return null");
         }
 
+        [Test]
+        [TestCase(500)]
         public void ShouldGetDecoratorWithMinExperienceReturnEmptyList(int years)
         {
             // use Collection Assert
+
+            //Act
+            var result = _repo.GetDecoratorsWithMinExperience(years);
+
+            //Assert
+            Assert.IsTrue(result.Count == 0, "The return with minimum experience did not return an empty list");
         }
 
+        [Test]
+        [TestCase("London")]
         public void ShouldGetDecoratorByLocationReturnEmptyList(string location)
         {
             // use Collection Assert
+
+            //Act
+            var result = _repo.GetDecoratorsByLocation(location);
+
+            //Assert
+            Assert.IsTrue(result.Count == 0, "The get decorator by location did not return an empty list");
         }
 
+        [Test]
+        [TestCase(50)]
         public void ShouldUpdateDecoratorReturnFalse(int decoratorId)
         {
             // use Condition Assert
+
+            //Arrange
+            var newInteriorDecorator = new InteriorDecorator(
+                    "Sample",
+                    30,
+                    "Specialists",
+                    "Delhi",
+                    "hills@gmail.com",
+                    "3333333333"
+                );
+
+            //Act
+            var result = _repo.UpdateDecorator(decoratorId, newInteriorDecorator);
+
+            //Assert
+            Assert.False(result, "The update did not fail properly");
         }
 
+        [Test]
+        [TestCase(50)]
         public void ShouldDeleteDecoratorReturnFalse(int decoratorId)
         {
             // use Condition Assert
+
+            //Act
+            var result = _repo.RemoveDecorator(decoratorId);
+
+            //Assert
+            Assert.False(result, "The delete operation did not fail properly");
         }
 
         #endregion

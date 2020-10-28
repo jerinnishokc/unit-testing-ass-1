@@ -1,4 +1,5 @@
 ﻿using eDecor.DAO.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,15 +16,21 @@ namespace eDecor.DAO.Repositories
         }
         public int AddDecorator(InteriorDecorator decorator)
         {
-            int id = 1001;
-            if (decoratorList.Count > 0)
-                id = decoratorList.Max(d => d.Id) + 1;
+            try
+            {
+                int id = 1001;
+                if (decoratorList.Count > 0)
+                    id = decoratorList.Max(d => d.Id) + 1;
 
-            decorator.SetId(id);
+                decorator.SetId(id);
 
-            decoratorList.Add(decorator);
+                decoratorList.Add(decorator);
 
-            return id;
+                return id;
+            }
+            catch (Exception e) {
+                throw e;
+            }
         }
 
         public InteriorDecorator GetDecorator(int decoratorId)
